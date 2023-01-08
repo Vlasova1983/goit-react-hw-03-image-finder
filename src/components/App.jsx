@@ -31,7 +31,7 @@ export class App  extends Component {
         <button
               onClick={this.toggle}              
               type="button"
-            >  Call to action
+            >  Modal
             </button>     
         {/* <Loader/> */}
         {/* <Button onClick={this.toggle}/>  */}
