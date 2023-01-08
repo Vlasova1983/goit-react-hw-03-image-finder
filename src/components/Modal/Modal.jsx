@@ -22,12 +22,14 @@ export class Modal extends Component {
     }
   };
 
-  render() {
-    const {onClose} = this.props;
-    return (
-      <div className={styles.Overlay} onClick={onClose}>                  
-        <img src="https://cdn.pixabay.com/photo/2019/05/14/16/43/himilayan-blue-poppy-4202825__340.jpg" alt=""/>
-      </div>        
+  render() {   
+    return (       
+      <div className={styles.Overlay} onClick={this.handleClose}>
+        <div >                  
+          <img src="https://cdn.pixabay.com/photo/2019/05/14/16/43/himilayan-blue-poppy-4202825__340.jpg" alt=""/>
+        </div>
+      </div>                  
     );
   }
 }
+
