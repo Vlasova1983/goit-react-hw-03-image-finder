@@ -14,44 +14,36 @@ export class App  extends Component {
     value:'',
     images: null,    
     isLoading: false, 
-    isLoadMore: false,    
-  };
+    isLoadMore: false,
+    page:1,   
+  };  
 
-    Page=1;
-
-  // componentDidMount(){    
-  //   console.log(this.state);    
-  // }
-
-  // componentDidUpdate(){
-  //   console.log(this.state.page);
-  //   this.setState({page:this.state.page+1});
-  // } 
-
-  fetchData = async ({value, page}) => {    
+  fetchData = async ({value}, page) => {   
+     
     try {
       const response= await axios.get(`https://pixabay.com/api/?key=31294159-be9d27b57dbd5b4db758a00af&q=${value}&image_type=photo&orientation=horizontal&per_page=12&page=${page}`);
       const images = response.data.hits; 
-      this.setState({images:images});                  
+      this.setState({images:images});                      
     }
     catch (error) {
       Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
     }
     finally{
-      this.setState({isLoading:false});
-      
-    }       
-  }
-    
+      this.setState({isLoading:false});      
+    }    
+  }    
 
-  handleSubmit = async (value)=>{       
+  handleSubmit = async (value)=>{ 
+       
     this.setState({isLoading:true, value: value, isLoadMore:true});       
-    this.fetchData(value,1);
+    this.fetchData(value, 1);
   };
 
   onClickLoadMore = () => {
     const {value}=this.state;
-    this.fetchData(value, 2);
+    const page=this.state.page+1;
+    this.setState({page:page});
+    this.fetchData(value, page);
   }
   
   render(){
