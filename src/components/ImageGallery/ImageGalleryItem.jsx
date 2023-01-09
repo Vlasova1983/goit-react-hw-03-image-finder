@@ -1,14 +1,30 @@
-// import PropTypes from "prop-types";
-
+import {Component} from "react";
+import { Modal } from '../Modal/Modal';
 
 import styles  from '../ImageGallery/ImageGallery.module.css';
 
-export const ImageGalleryItem = () => {
-   return (  
-        <li className={styles.ImageGalleryItem}>
-            <img src="https://cdn.pixabay.com/photo/2019/05/14/16/43/himilayan-blue-poppy-4202825__340.jpg" alt="" className={styles.ImageGalleryItem_image} />
-        </li>      
-    );
+export class ImageGalleryItem extends Component  {
+
+    state = {        
+        isOpen: false,        
+    };
+      
+    toggle = () => {
+        this.setState(prevState => ({ isOpen: !prevState.isOpen }));
+    };
+
+    render(){
+        const { isOpen } = this.state;
+        return ( 
+            <>
+                <li className={styles.ImageGalleryItem} onClick={this.toggle}  >
+                    <img src={this.props.image.webformatURL} alt="" className={styles.ImageGalleryItem_image} />
+                </li> 
+                {isOpen && (<Modal onClose={this.toggle} imageModal={this.props.image.largeImageURL}/>)}
+            </> 
+        )     
+    }
+   
 }
-    
-  
+
+
