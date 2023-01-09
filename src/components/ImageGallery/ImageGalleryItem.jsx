@@ -8,6 +8,11 @@ export class ImageGalleryItem extends Component  {
     state = {        
         isOpen: false,        
     };
+
+//     shouldComponentUpdate(nextProps){
+//     console.log(nextProps.image.id)
+//     return false;
+//   }
       
     toggle = () => {
         this.setState(prevState => ({ isOpen: !prevState.isOpen }));
