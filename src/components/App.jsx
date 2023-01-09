@@ -17,9 +17,8 @@ export class App  extends Component {
     isLoadMore: false,
     page:1,   
   };  
-
-  fetchData = async ({value}, page) => {   
-     
+  
+  fetchData = async ({value}, page) => {      
     try {
       const response= await axios.get(`https://pixabay.com/api/?key=31294159-be9d27b57dbd5b4db758a00af&q=${value}&image_type=photo&orientation=horizontal&per_page=12&page=${page}`);
       const images = response.data.hits; 
@@ -33,8 +32,7 @@ export class App  extends Component {
     }    
   }    
 
-  handleSubmit = async (value)=>{ 
-       
+  handleSubmit = async (value)=>{        
     this.setState({isLoading:true, value: value, isLoadMore:true});       
     this.fetchData(value, 1);
   };
