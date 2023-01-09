@@ -2,6 +2,7 @@ import { Component } from 'react';
 import styles  from '../Modal/Modal.module.css';
 
 export class Modal extends Component {
+
   componentDidMount() {
     window.addEventListener('keydown', this.handleKeyClose);
   }
@@ -10,7 +11,7 @@ export class Modal extends Component {
     window.removeEventListener('keydown', this.handleKeyClose);
   }
 
-  handleKeyClose = event => {
+  handleKeyClose = event => {   
     if (event.code === 'Escape') {
       this.props.onClose();
     }
@@ -23,12 +24,15 @@ export class Modal extends Component {
   };
 
   render() {   
-    return (       
-      <div className={styles.Overlay} onClick={this.handleClose}>
-        <div >                  
-          <img src="https://cdn.pixabay.com/photo/2019/05/14/16/43/himilayan-blue-poppy-4202825__340.jpg" alt=""/>
-        </div>
-      </div>                  
+    return ( 
+      <>
+        <div className={styles.Backdrop}/>     
+        <div className={styles.Overlay} onClick={this.handleClose}>
+          <div className={styles.Modal}>                  
+            <img src={this.props.imageModal} alt="" />
+          </div>
+        </div>      
+      </>                      
     );
   }
 }
