@@ -12,36 +12,43 @@ import Notiflix from 'notiflix';
 export class App  extends Component { 
   state = {
     value:'',
-    images: null,    
+    images: [],    
     isLoading: false, 
     isLoadMore: false,
     page:1,   
-  };  
+  };
+      
   
-  fetchData = async ({value}, page) => {      
+
+  componentDidUpdate(_, prevState) {      
+    const { value, page } = this.state;
+    if (value !== prevState.value || page !== prevState.page) {
+      this.setState({isLoading: true, isLoadMore:true});
+      this.fetchData(value, page );
+    };  
+  }
+
+
+  fetchData = async ({value}, page) => {   
     try {
       const response= await axios.get(`https://pixabay.com/api/?key=31294159-be9d27b57dbd5b4db758a00af&q=${value}&image_type=photo&orientation=horizontal&per_page=12&page=${page}`);
-      const images = response.data.hits; 
-      this.setState({images:images});                      
+      const images = response.data.hits;      
+      this.setState({images:[...this.state.images,...images]});                      
     }
     catch (error) {
       Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
     }
     finally{
       this.setState({isLoading:false});      
-    }    
+    }        
   }    
-
+  
   handleSubmit = async (value)=>{        
-    this.setState({isLoading:true, value: value, isLoadMore:true});       
-    this.fetchData(value, 1);
+    this.setState({value: value, images:[], page:1});    
   };
 
-  onClickLoadMore = () => {
-    const {value}=this.state;
-    const page=this.state.page+1;
-    this.setState({page:page});
-    this.fetchData(value, page);
+  onClickLoadMore = () => {    
+    this.setState({page:this.state.page+1});    
   }
   
   render(){
