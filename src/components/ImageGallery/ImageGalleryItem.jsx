@@ -1,5 +1,6 @@
 import {Component} from "react";
 import { Modal } from '../Modal/Modal';
+import { PropTypes } from 'prop-types';
 
 import styles  from '../ImageGallery/ImageGallery.module.css';
 
@@ -9,11 +10,6 @@ export class ImageGalleryItem extends Component  {
         isOpen: false,        
     };
 
-//     shouldComponentUpdate(nextProps){
-//     console.log(nextProps.image.id)
-//     return false;
-//   }
-      
     toggle = () => {
         this.setState(prevState => ({ isOpen: !prevState.isOpen }));
     };
@@ -32,4 +28,6 @@ export class ImageGalleryItem extends Component  {
    
 }
 
-
+ImageGalleryItem.propTypes = { 
+    images: PropTypes.shape(), 
+}
